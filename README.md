@@ -15,16 +15,16 @@ The obtained dataset has been randomly partitioned into two sets, where 70% of t
 2. Unzip this file into working directory and read these files into R with these codes.
    
    activitylabel<-read.table("activity_labels.txt") 
-   ####"activity_labels.txt": Links the class labels with their activity names. E.g.WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING 
+   ##"activity_labels.txt": Links the class labels with their activity names. E.g.WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING 
    
    features<-read.table("features.txt")
-   ####"features.txt": List of all features.Total 561 variables. We will only extracts the measurements on the mean and standard deviation for each measurement.  
-   ####E.g.tBodyAcc-mean()-X,tBodyAcc-mean()-Y,tBodyAcc-mean()-Z,tBodyAcc-std()-X,tBodyAcc-std()-Y,tBodyAcc-std()-Z, etc.. 
+   ##"features.txt": List of all features.Total 561 variables. We will only extracts the measurements on the mean and standard deviation for each measurement.  
+   ##E.g.tBodyAcc-mean()-X,tBodyAcc-mean()-Y,tBodyAcc-mean()-Z,tBodyAcc-std()-X,tBodyAcc-std()-Y,tBodyAcc-std()-Z, etc.. 
    
    ytest<-read.table("./test/y_test.txt")
    Xtest<-read.table("./test/X_test.txt")
-   ####"y_test.txt": Test labels with number 1-6. Match activity names.E.g.WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING  
-   ####"X_test.txt": Test set. With 2947 observations.
+   ##"y_test.txt": Test labels with number 1-6. Match activity names.E.g.WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING  
+   ##"X_test.txt": Test set. With 2947 observations.
    
    subjecttest<-read.table("./test/subject_test.txt")
    "subject_test.txt" 2947 obversations with numbers in 1-30. This is the label for volunteer. Connect volunteer number to test set data.   
