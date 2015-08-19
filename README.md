@@ -15,79 +15,79 @@ The obtained dataset has been randomly partitioned into two sets, where 70% of t
 2. Unzip this file into working directory and read these files into R with these codes.
    
    activitylabel<-read.table("activity_labels.txt") 
-   ##"activity_labels.txt": Links the class labels with their activity names. E.g.WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING 
+   #"activity_labels.txt": Links the class labels with their activity names. E.g.WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING 
    
    features<-read.table("features.txt")
-   ##"features.txt": List of all features.Total 561 variables. We will only extracts the measurements on the mean and standard deviation for each measurement.  
-   ##E.g.tBodyAcc-mean()-X,tBodyAcc-mean()-Y,tBodyAcc-mean()-Z,tBodyAcc-std()-X,tBodyAcc-std()-Y,tBodyAcc-std()-Z, etc.. 
+   #"features.txt": List of all features.Total 561 variables. We will only extracts the measurements on the mean and standard deviation for each measurement.E.g.tBodyAcc-mean()-X,tBodyAcc-mean()-Y,tBodyAcc-mean()-Z,tBodyAcc-std()-X,tBodyAcc-std()-Y,tBodyAcc-std()-Z, etc.. 
    
    ytest<-read.table("./test/y_test.txt")
    Xtest<-read.table("./test/X_test.txt")
-   ##"y_test.txt": Test labels with number 1-6. Match activity names.E.g.WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING  
-   ##"X_test.txt": Test set. With 2947 observations.
+   #"y_test.txt": Test labels with number 1-6. Match activity names.E.g.WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING  
+   #"X_test.txt": Test set. With 2947 observations.
    
    subjecttest<-read.table("./test/subject_test.txt")
-   "subject_test.txt" 2947 obversations with numbers in 1-30. This is the label for volunteer. Connect volunteer number to test set data.   
+   #"subject_test.txt" 2947 obversations with numbers in 1-30. This is the label for volunteer. Connect volunteer number to test set data.   
    
    ytrain<-read.table("./train/y_train.txt")
    Xtrain<-read.table("./train/X_train.txt")
-   "y_train.txt": Train labels with number 1-6. Match activity names.E.g.WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING ## 
-   "X_train.txt": Train set. With 7352 observations.
+   #"y_train.txt": Train labels with number 1-6. Match activity names.E.g.WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING  
+   #"X_train.txt": Train set. With 7352 observations.
+   
    subjecttrain<-read.table("./train/subject_train.txt")
-   "subject_train.txt"  7352 obversations with numbers in 1-30. This is the label for volunteer. Connect volunteer number to train set data. ## 
+   #"subject_train.txt"  7352 obversations with numbers in 1-30. This is the label for volunteer. Connect volunteer number to train set data.  
 
 ### Merges the training and the test sets to create one data set
    
    X<-rbind(Xtest,Xtrain)                   
-   combine X_test and X_train ##
+   #combine X_test and X_train 
    label<-rbind(ytest,ytrain)               
-   combine y_test and y_train ##
+   #combine y_test and y_train 
    subject<-rbind(subjecttest,subjecttrain) 
-   combine subject_test and subject_train ##
+   #combine subject_test and subject_train 
 
 ### Extracts only the measurements on the mean and standard deviation for each measurement.
 
    colnameX<-features[,2]                           
-   get column names for data X ( Xtrain and Xtest ) from features ##
+   #get column names for data X ( Xtrain and Xtest ) from features 
    colnames(X)<-colnameX                            
-   change X's column names ##   
+   #change X's column names    
    a<-grep("(mean\\(\\)|std\\(\\))",colnameX)       
-   find X's colname include mean() and std() ## 
+   #find X's colname include mean() and std()  
    data<-X[,a]                                      
-   extracts the data ## 
+   #extracts the data  
 
 ### Appropriately labels the data set with descriptive variable names.
    
    colnamedata<-colnames(data)           
-   get data's colnames ##
+   #get data's colnames 
    colnamedata<-gsub("-","",colnamedata) 
-   remove - in colnameX ##
+   #remove - in colnameX 
    colnamedata<-gsub("\\(\\)","",colnamedata)  
-   remove () in colnamedata##
+   #remove () in colnamedata
    colnames(data)<-colnamedata          
-   put back the new name ##
+   #put back the new name 
    
 
 ### Uses descriptive activity names to name the activities in the data set.
 
    colnamey<-"label"                      
-   give the colname "label" to y ( ytrain and ytest) ##
+   #give the colname "label" to y ( ytrain and ytest) 
    colnames(label)<-colnamey              
-   give the colname "label" to y ( ytrain and ytest) ##
+   #give the colname "label" to y ( ytrain and ytest) 
    colnamesubject<-"subject"              
-   give the colname "subject" to subject ( subjecttrain and subjecttest) ##
+   #give the colname "subject" to subject ( subjecttrain and subjecttest) 
    colnames(subject)<-colnamesubject      
-   give the colname "subject" to subject ( subjecttrain and subjecttest) ##   
+   #give the colname "subject" to subject ( subjecttrain and subjecttest)    
    data<-cbind(label,data)                
-   Combine "label", "subject" and data together ##
+   #combine "label", "subject" and data together
    data<-cbind(subject,data)              
-   Combine "label", "subject" and data together ##
+   #combine "label", "subject" and data together 
    data<-merge(activitylabel,data,by.x = "V1",by.y = "label",all = TRUE)  
-   merge activitylabel with label in data ##
+   #merge activitylabel with label in data 
    library("dplyr")                       
-   load dplyr package ## 
+   #load dplyr package  
    data<-rename(data,label=V1,Activity=V2)
-   rename colnames with "label" and "activity" ## 
+   #rename colnames with "label" and "activity"  
 
 ### Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
 
@@ -135,14 +135,14 @@ The obtained dataset has been randomly partitioned into two sets, where 70% of t
    datanew6<-as.data.frame(t(datanew))
 
    datanewtotal<-rbind(datanew1,datanew2,datanew3,datanew4,datanew5,datanew6)              
-   combine 6 parts together ##
+   #combine 6 parts together 
    datanewtotal<-merge(activitylabel,datanewtotal,by.x = "V1",by.y = "label",all = TRUE)   
-   merge the new data with actititylabel ##
+   #merge the new data with actititylabel 
    datanewtotal<-rename(datanewtotal,label=V1,Activity=V2)                                 
-   rename colnames with "label" and "activity" ## 
+   #rename colnames with "label" and "activity"  
    out <- data.frame(lapply(datanewtotal, function(x) factor(unlist(x))))                  
-   unlist the data so that we can use write.table to export the data ## 
+   #unlist the data so that we can use write.table to export the data  
    write.table(out,file = "datanewtotal.txt",row.names = FALSE)                            
-   export the data ##
+   #export the data 
 
 
